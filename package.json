@@ -2,23 +2,39 @@
   "name": "nextjs-14-course-pages-router",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "yarn@4.0.2",
+  "engines": {
+    "node": "^20.10.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint  && stylelint '**/*.scss'",
+    "lint:fix": "next lint --fix && stylelint '**/*.scss' --fix",
+    "postinstall": "husky install"
   },
   "dependencies": {
+    "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.3"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@svgr/webpack": "^8.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.0.3"
+    "eslint-config-next": "14.0.3",
+    "eslint-plugin-import": "^2.28.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "postcss-scss": "^4.0.9",
+    "sass": "^1.68.0",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-order": "^6.0.3",
+    "stylelint-scss": "^5.3.1",
+    "typescript": "^5"
   }
 }

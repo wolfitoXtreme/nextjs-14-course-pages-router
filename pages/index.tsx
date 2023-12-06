@@ -1,7 +1,11 @@
 import Head from 'next/head'
-import Image from 'next/image'
+
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+
+import NextJSLogo from '@/public/images/next.svg';
+import VercelLogo from '@/public/images/vercel.svg';
+
+import styles from '@/styles/Home.module.scss'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,26 +31,18 @@ export default function Home() {
               rel="noopener noreferrer"
             >
               By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
+              <VercelLogo
+                style={{ width: '80px', height: 'auto' }}
+                className={styles['vercel-logo']}
               />
             </a>
           </div>
         </div>
 
         <div className={styles.center}>
-          <Image
+          <NextJSLogo
+            style={{ width: '180px', height: 'auto' }}
             className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
           />
         </div>
 

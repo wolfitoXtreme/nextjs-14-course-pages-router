@@ -1,0 +1,18 @@
+{
+  "eslint.format.enable": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "eslint.lintTask.enable": true,
+  "git.autoRepositoryDetection": false,
+  "gitlens.views.fileHistory.avatars": true,
+  "prettier.singleQuote": true,
+  "prettier.bracketSpacing": true,
+  "prettier.trailingComma": "none",
+  "stylelint.enable": true,
+  "stylelint.validate": ["scss"],
+  "editor.detectIndentation": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  }
+}
