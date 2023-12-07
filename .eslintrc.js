@@ -14,7 +14,8 @@ module.exports = {
     },
   },
   extends: ['eslint-config-next', 'next/core-web-vitals'],
-  plugins: ['import'],
+  plugins: ['import', '@stylistic'],
+  ignorePatterns: ["!.stylelintrc*"],
   rules: {
     'arrow-parens': ['warn', 'as-needed'],
     'comma-dangle': ['warn', 'always-multiline'],
@@ -77,5 +78,6 @@ module.exports = {
     'multiline-ternary': ['warn', 'always'],
     'object-curly-spacing': ['warn', 'always'],
     'prefer-const': 2,
+    '@stylistic/semi': 'warn',
   },
 };

@@ -1,13 +1,14 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
-import { Inter } from 'next/font/google'
+import classNames from 'classnames';
+import { Inter } from 'next/font/google';
 
 import NextJSLogo from '@/public/images/next.svg';
 import VercelLogo from '@/public/images/vercel.svg';
 
-import styles from '@/styles/Home.module.scss'
+import styles from '@/styles/Home.module.scss';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   return (
@@ -18,8 +19,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.description}>
+      <main className={classNames(styles.main, inter.className)}>
+        <div className={classNames(styles.description, styles['description--test-variant'])}>
           <p>
             Get started by editing&nbsp;
             <code className={styles.code}>pages/index.tsx</code>
@@ -106,5 +107,5 @@ export default function Home() {
         </div>
       </main>
     </>
-  )
+  );
 }
