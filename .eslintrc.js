@@ -14,8 +14,8 @@ module.exports = {
     },
   },
   extends: ['eslint-config-next', 'next/core-web-vitals'],
-  plugins: ['import', '@stylistic'],
-  ignorePatterns: ["!.stylelintrc*"],
+  plugins: ['import'],
+  ignorePatterns: ['!.stylelintrc*'],
   rules: {
     'arrow-parens': ['warn', 'as-needed'],
     'comma-dangle': ['warn', 'always-multiline'],
@@ -68,16 +68,14 @@ module.exports = {
       },
     ],
     indent: ['error', 2],
-    'no-console': process.env.NODE_ENV === 'production'
-      ? 'error'
-      : 'warn',
-    'no-debugger': process.env.NODE_ENV === 'production'
-      ? 'error'
-      : 'warn',
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-unused-vars': ['warn'],
-    'multiline-ternary': ['warn', 'always'],
     'object-curly-spacing': ['warn', 'always'],
+    'padding-line-between-statements': [
+      'warn',
+      { blankLine: 'always', prev: '*', next: 'return' },
+    ],
     'prefer-const': 2,
-    '@stylistic/semi': 'warn',
   },
 };
