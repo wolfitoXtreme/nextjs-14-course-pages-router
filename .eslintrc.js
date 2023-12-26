@@ -13,7 +13,12 @@ module.exports = {
       jsx: true,
     },
   },
-  extends: ['eslint-config-next', 'next/core-web-vitals'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'eslint-config-next',
+    'next/core-web-vitals',
+  ],
   plugins: ['import'],
   ignorePatterns: ['!.stylelintrc*'],
   rules: {
@@ -49,12 +54,22 @@ module.exports = {
             position: 'before',
           },
           {
+            pattern: '{./,../}**',
+            group: 'parent',
+            position: 'before',
+          },
+          {
+            pattern: '@/assets/**',
+            group: 'parent',
+            position: 'before',
+          },
+          {
             pattern: '@/public/**',
             group: 'parent',
             position: 'before',
           },
           {
-            pattern: '{./,../,@/styles/}**.scss',
+            pattern: '@/styles/**.scss',
             group: 'index',
             position: 'after',
           },
@@ -70,12 +85,13 @@ module.exports = {
     indent: ['error', 2],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
-    'no-unused-vars': ['warn'],
+    'no-unused-vars': ['off'],
     'object-curly-spacing': ['warn', 'always'],
     'padding-line-between-statements': [
       'warn',
-      { blankLine: 'always', prev: '*', next: 'return' },
+      { blankLine: 'always', prev: '*', next: ['return', 'export'] },
     ],
     'prefer-const': 2,
+    '@typescript-eslint/no-unused-vars': ['warn'],
   },
 };
