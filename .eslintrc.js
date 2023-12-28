@@ -20,7 +20,7 @@ module.exports = {
     'next/core-web-vitals',
   ],
   plugins: ['import'],
-  ignorePatterns: ['!.stylelintrc*'],
+  ignorePatterns: ['!.stylelintrc*', '!.lintstagedrc*'],
   rules: {
     'arrow-parens': ['warn', 'as-needed'],
     'comma-dangle': ['warn', 'always-multiline'],
@@ -44,7 +44,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '@/{types,data}{/,}**',
+            pattern: '@/{types,lib}{/,}**',
             group: 'internal',
             position: 'before',
           },
@@ -54,22 +54,17 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '{./,../}**',
+            pattern: '{./!(*.scss),../**}',
             group: 'parent',
             position: 'before',
           },
           {
-            pattern: '@/assets/**',
+            pattern: '@/{assets,public}/**',
             group: 'parent',
             position: 'before',
           },
           {
-            pattern: '@/public/**',
-            group: 'parent',
-            position: 'before',
-          },
-          {
-            pattern: '@/styles/**.scss',
+            pattern: '{@/styles/**,./**.module.scss}',
             group: 'index',
             position: 'after',
           },

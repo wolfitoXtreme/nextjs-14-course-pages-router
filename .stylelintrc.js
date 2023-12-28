@@ -10,10 +10,10 @@ module.exports = {
     'font-family-no-missing-generic-family-keyword': [
       true,
       {
-        'ignoreFontFamilies': ['[$].*'],
+        ignoreFontFamilies: ['[$].*'],
       },
     ],
-    'indentation': 2,
+    // indentation: 2, TODO: COnflicts with prettier
     'order/order': ['custom-properties', 'declarations'],
     'order/properties-order': [
       'all',
@@ -541,37 +541,37 @@ module.exports = {
     ],
     'rule-empty-line-before': [
       'always',
-      { 'ignore': ['after-comment', 'first-nested'] },
+      { ignore: ['after-comment', 'first-nested'] },
     ],
     'selector-pseudo-class-no-unknown': [
       true,
       {
-        'ignorePseudoClasses': ['export', 'import', 'global'],
+        ignorePseudoClasses: ['export', 'import', 'global'],
       },
     ],
     'scss/at-rule-no-unknown': true,
     'scss/dollar-variable-first-in-block': [
       true,
-      { 'ignore': ['comments', 'imports'] },
+      { ignore: ['comments', 'imports'] },
     ],
     'scss/dollar-variable-empty-line-after': [
       'always',
       {
-        'except': ['before-dollar-variable', 'last-nested'],
+        except: ['before-dollar-variable', 'last-nested'],
       },
     ],
     'scss/dollar-variable-empty-line-before': [
       'always',
       {
-        'except': ['first-nested', 'after-comment', 'after-dollar-variable'],
-        'ignore': ['inside-single-line-block'],
+        except: ['first-nested', 'after-comment', 'after-dollar-variable'],
+        ignore: ['inside-single-line-block'],
       },
     ],
     'scss/double-slash-comment-empty-line-before': [
       'always',
       {
-        'except': ['first-nested'],
-        'ignore': ['between-comments', 'stylelint-commands'],
+        except: ['first-nested'],
+        ignore: ['between-comments', 'stylelint-commands'],
       },
     ],
   },
