@@ -44,7 +44,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '@/{types,lib}{/,}**',
+            pattern: '@/{types,lib,utils}{/,}**',
             group: 'internal',
             position: 'before',
           },
@@ -81,6 +81,15 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-unused-vars': ['off'],
+    'object-curly-newline': [
+      'warn',
+      {
+        ObjectExpression: { consistent: true, multiline: true },
+        ObjectPattern: { consistent: true, multiline: true },
+        ImportDeclaration: 'never',
+        ExportDeclaration: { multiline: true, minProperties: 4 },
+      },
+    ],
     'object-curly-spacing': ['warn', 'always'],
     'padding-line-between-statements': [
       'warn',
