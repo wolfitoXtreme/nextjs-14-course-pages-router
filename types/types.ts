@@ -19,3 +19,9 @@ export type TEvent = {
   image: string;
   isFeatured: boolean;
 };
+
+export type TEventLogistics = Partial<
+  Omit<TEvent, 'id' | 'title' | 'description' | 'isFeatured'>
+> & {
+  imageAlt?: string;
+};

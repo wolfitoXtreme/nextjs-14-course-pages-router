@@ -4,3 +4,11 @@ export const humanReadableDate = (date: string) =>
     month: 'long',
     year: 'numeric',
   });
+
+export const formatLineEndings = (text: string) => {
+  if (typeof text !== 'string') {
+    return '';
+  }
+
+  return text.replace(', ', '\n');
+};

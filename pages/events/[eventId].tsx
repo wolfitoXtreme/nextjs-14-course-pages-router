@@ -1,19 +1,41 @@
 import { useRouter } from 'next/router';
 
+import { getEventById } from '@/data/dummy-data';
+
+import EventContent from '@/components/events/eventDetail/EventContent';
+import EventLogistics from '@/components/events/eventDetail/EventLogistics';
+import EventSummary from '@/components/events/eventDetail/EventSummary';
+
 const EventDetailPage = () => {
   const {
-    query,
     query: { eventId },
   } = useRouter();
 
+  const event = getEventById(eventId);
+
+  const { title, date, location, image, description } = event || {};
+
   return (
-    <div>
-      <h1>Single Event Page</h1>
-      <div>
-        <h2>Event: {eventId}</h2>
-        <pre>{JSON.stringify(query, null, 2)}</pre>
-      </div>
-    </div>
+    <>
+      {event ? (
+        <>
+          <EventSummary title={title} />
+          <EventLogistics
+            location={location}
+            image={image}
+            date={date}
+            imageAlt={title}
+          />
+          <EventContent>
+            <p>{description}</p>
+          </EventContent>
+        </>
+      ) : (
+        <>
+          <p>No event found.</p>
+        </>
+      )}
+    </>
   );
 };
 

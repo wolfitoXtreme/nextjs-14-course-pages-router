@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { TEvent } from '@/types';
-import { humanReadableDate } from '@/utils';
+import { humanReadableDate, formatLineEndings } from '@/utils';
 
 import Button from '@/components/ui/Button';
 
@@ -9,18 +9,20 @@ import AddressIcon from '@/assets/icons/address-icon.svg';
 import ArrowRightIcon from '@/assets/icons/arrow-rightIcon.svg';
 import DateIcon from '@/assets/icons/date-icon.svg';
 
-import styles from './EventItem.module.scss';
+import styles from './EventListItem.module.scss';
 
-const EventItem: React.FC<{ event: TEvent }> = ({
+const EventListItem: React.FC<{ event: TEvent }> = ({
   event: { id, title, location, date, image },
 }) => {
   const formattedDate = humanReadableDate(date);
-  const formattedAddress = location.replace(', ', '\n');
+  const formattedAddress = formatLineEndings(location);
 
   return (
     <>
       <div className={styles.item}>
-        <Image src={`/${image}`} alt={title} />
+        <div className={styles.image}>
+          <Image src={`/${image}`} fill alt={title} />
+        </div>
         <div className={styles.content}>
           <div className={styles.summary}>
             <h2>{title}</h2>
@@ -45,4 +47,4 @@ const EventItem: React.FC<{ event: TEvent }> = ({
   );
 };
 
-export default EventItem;
+export default EventListItem;
