@@ -1,4 +1,4 @@
-export const humanReadableDate = (date: string) =>
+export const humanReadableDate = (date: Date) =>
   new Date(date).toLocaleDateString('en-US', {
     day: 'numeric',
     month: 'long',

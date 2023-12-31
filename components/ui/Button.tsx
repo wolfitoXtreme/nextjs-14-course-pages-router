@@ -1,14 +1,21 @@
 import Link from 'next/link';
 
+import { TButton } from '@/types';
+
 import styles from './button.module.scss';
 
-const Button: React.FC<{ link: string; children?: React.ReactNode }> = ({
-  link,
-  children,
-}) => (
-  <Link href={link} className={styles.btn}>
-    {children}
-  </Link>
+const Button: React.FC<TButton> = ({ link, onClick, children }) => (
+  <>
+    {link ? (
+      <Link href={link} className={styles.btn}>
+        {children}
+      </Link>
+    ) : (
+      <button onClick={onClick} className={styles.btn}>
+        {children}
+      </button>
+    )}
+  </>
 );
 
 export default Button;

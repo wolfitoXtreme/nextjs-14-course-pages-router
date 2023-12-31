@@ -16,7 +16,7 @@ const EventLogistics: React.FC<TEventLogistics> = ({
   image,
   imageAlt,
 }) => {
-  const formattedDate = humanReadableDate(date as string);
+  const formattedDate = humanReadableDate(date as Date);
   const formattedAddress = formatLineEndings(location as string);
 
   return (

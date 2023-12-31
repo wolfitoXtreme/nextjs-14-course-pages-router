@@ -14,7 +14,7 @@ import styles from './EventListItem.module.scss';
 const EventListItem: React.FC<{ event: TEvent }> = ({
   event: { id, title, location, date, image },
 }) => {
-  const formattedDate = humanReadableDate(date);
+  const formattedDate = humanReadableDate(date as Date);
   const formattedAddress = formatLineEndings(location);
 
   return (
