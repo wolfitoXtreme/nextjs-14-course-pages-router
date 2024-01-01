@@ -1,4 +1,4 @@
-import { SampleAT, SampleBT, TMealItem } from '@/types/types';
+import { SampleAT, SampleBT } from '@/types/types';
 
 export interface SampleAI<P = SampleAT> {
   (args: P): string;
@@ -15,10 +15,6 @@ export interface SampleCI {
 export interface IHeaderNavigationLink {
   href: string;
   children?: React.ReactNode;
-}
-
-export interface IMealsGrid {
-  meals: TMealItem[];
 }
 
 export interface IImagePicker {
