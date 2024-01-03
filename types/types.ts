@@ -6,8 +6,11 @@ export type SampleAT = {
 export type SampleBT = [a: string, b: number];
 
 export type TDummyProduct = {
-  products: {
-    id: string;
-    title: string;
-  }[];
+  id: string;
+  title: string;
+  description: string;
+};
+
+export type TDummyProducts = {
+  products: TDummyProduct[];
 };
