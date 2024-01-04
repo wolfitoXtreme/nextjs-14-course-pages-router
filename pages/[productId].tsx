@@ -6,17 +6,48 @@ import path from 'path';
 import { TDummyProduct, TDummyProducts } from '@/types';
 
 const ProductDetailsPage = ({
-  product: { title, description },
+  product = {},
 }: {
-  product: TDummyProduct;
+  product: Partial<TDummyProduct>; // Using 'fallback=true' causes this tu be undefined
 }) => {
+  // as 'fallback=true', need to check for data existence
+  const hasAllData = Object.keys(product).every(
+    productKey => !!(product as Record<string, string>)[productKey],
+  );
+
   return (
     <>
-      <h2>{title}</h2>
-      <p>{description}</p>
+      {hasAllData ? (
+        <>
+          <h2>{product.title}</h2>
+          <p>{product.description}</p>
+        </>
+      ) : (
+        <p>Loading product..</p>
+      )}
     </>
   );
 };
+
+// const ProductDetailsPage = ({ product }: { product: TDummyProduct }) => {
+//   // eslint-disable-next-line no-console
+//   console.log({ product }, product.title);
+
+//   return (
+//     <>
+//       {product ? (
+//         <>
+//           <h1>Has product</h1>
+//           <pre>{JSON.stringify(product, null, 2)}</pre>
+//           <h2>{product.title}</h2>
+//           <p>{product.description}</p>
+//         </>
+//       ) : (
+//         <p>Loading products...</p>
+//       )}
+//     </>
+//   );
+// };
 
 export default ProductDetailsPage;
 
@@ -49,10 +80,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: [
       { params: { productId: 'p1' } },
       { params: { productId: 'p2' } },
-      { params: { productId: 'p3' } },
-      { params: { productId: 'p4' } },
-      { params: { productId: 'p5' } },
+      // { params: { productId: 'p3' } },
+      // { params: { productId: 'p4' } },
+      // { params: { productId: 'p5' } },
     ],
-    fallback: false,
+    fallback: true, // only pre generates de specified paths data
+    // fallback: 'blocking', // will block until data is available, no need to check for it (ex: ...loading)
   };
 };
