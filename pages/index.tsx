@@ -1,10 +1,8 @@
 import Link from 'next/link';
 import { GetStaticProps } from 'next/types';
 
-import fs from 'fs/promises'; // will fail if executed on the client side (cannot read filesystem)
-import path from 'path';
-
 import { TDummyProducts } from '@/types';
+import { getProducts } from '@/utils';
 
 const Homepage: React.FC<TDummyProducts> = ({ products }) => {
   return (
@@ -22,12 +20,7 @@ const Homepage: React.FC<TDummyProducts> = ({ products }) => {
 export const getStaticProps: GetStaticProps = async () => {
   // code here will never reach the client side
 
-  // process.cwd()      -> current working directory
-  // data               -> data directory
-  // dummy-backend.json'-> targeted file
-  const filePath = path.join(process.cwd(), 'data', 'dummy-backend.json');
-  const jsonData = await fs.readFile(filePath);
-  const { products } = JSON.parse(jsonData.toString()) as TDummyProducts;
+  const products = await getProducts();
 
   // eslint-disable-next-line no-console
   console.log('regenerating...'); // will log only is app is re-loaded after 10 seconds, see below

@@ -1,9 +1,7 @@
 import { GetStaticProps, GetStaticPaths } from 'next/types';
 
-import fs from 'fs/promises'; // will fail if executed on the client side (cannot read filesystem)
-import path from 'path';
-
-import { TDummyProduct, TDummyProducts } from '@/types';
+import { TDummyProduct } from '@/types';
+import { getProducts } from '@/utils';
 
 const ProductDetailsPage = ({
   product = {},
@@ -55,12 +53,7 @@ export const getStaticProps: GetStaticProps = async context => {
   const { params } = context;
   const { productId } = params || {};
 
-  // process.cwd()      -> current working directory
-  // data               -> data directory
-  // dummy-backend.json'-> targeted file
-  const filePath = path.join(process.cwd(), 'data', 'dummy-backend.json');
-  const jsonData = await fs.readFile(filePath);
-  const { products } = JSON.parse(jsonData.toString()) as TDummyProducts;
+  const products = await getProducts();
 
   // eslint-disable-next-line no-console
   console.log('regenerating...', { context });
@@ -76,14 +69,28 @@ export const getStaticProps: GetStaticProps = async context => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const products = await getProducts();
+
+  const productsIds = products
+    .filter(({ priority }) => priority)
+    .map(({ id }) => id);
+
+  // eslint-disable-next-line no-console
+  console.log('', { productsIds });
+
+  const pathsWithParams = productsIds.map(id => ({
+    params: { productId: id },
+  }));
+
   return {
-    paths: [
-      { params: { productId: 'p1' } },
-      { params: { productId: 'p2' } },
-      // { params: { productId: 'p3' } },
-      // { params: { productId: 'p4' } },
-      // { params: { productId: 'p5' } },
-    ],
+    paths: pathsWithParams,
+    // paths: [
+    //   { params: { productId: 'p1' } },
+    //   { params: { productId: 'p2' } },
+    //   // { params: { productId: 'p3' } },
+    //   // { params: { productId: 'p4' } },
+    //   // { params: { productId: 'p5' } },
+    // ],
     fallback: true, // only pre generates de specified paths data
     // fallback: 'blocking', // will block until data is available, no need to check for it (ex: ...loading)
   };

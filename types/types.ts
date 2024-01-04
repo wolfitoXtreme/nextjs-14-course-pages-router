@@ -9,6 +9,7 @@ export type TDummyProduct = {
   id: string;
   title: string;
   description: string;
+  priority: boolean;
 };
 
 export type TDummyProducts = {
