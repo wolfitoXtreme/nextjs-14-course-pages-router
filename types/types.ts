@@ -15,3 +15,14 @@ export type TDummyProduct = {
 export type TDummyProducts = {
   products: TDummyProduct[];
 };
+
+export type TUserData = {
+  id: string;
+  userName: string;
+};
+
+export type TSalesData = {
+  id: string;
+  userName: string;
+  volume: number;
+};

@@ -9,7 +9,7 @@ const Homepage: React.FC<TDummyProducts> = ({ products }) => {
     <ul>
       {products.map(({ id, title }, index) => (
         <li key={`${id}-${index}`}>
-          <Link href={`/${id}`}>{title}</Link>
+          <Link href={`/products/${id}`}>{title}</Link>
         </li>
       ))}
     </ul>

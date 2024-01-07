@@ -1,5 +1,7 @@
 import { GetStaticProps, GetStaticPaths } from 'next/types';
 
+import { ParsedUrlQuery } from 'querystring';
+
 import { TDummyProduct } from '@/types';
 import { getProducts } from '@/utils';
 
@@ -15,6 +17,7 @@ const ProductDetailsPage = ({
 
   return (
     <>
+      <h1>Product Page</h1>
       {hasAllData ? (
         <>
           <h2>{product.title}</h2>
@@ -51,7 +54,7 @@ export default ProductDetailsPage;
 
 export const getStaticProps: GetStaticProps = async context => {
   const { params } = context;
-  const { productId } = params || {};
+  const { productId } = params as ParsedUrlQuery;
 
   const products = await getProducts();
 
@@ -61,10 +64,13 @@ export const getStaticProps: GetStaticProps = async context => {
   const product = products.find(({ id }) => id === productId);
 
   return {
-    props: {
-      product,
-    },
-    revalidate: 10,
+    // props: {
+    //   product,
+    // },
+    // revalidate: 10,
+
+    // check is there is data (fallback: true), to avoid errors (dev) or rendering an empty page (prod)
+    ...(product ? { props: { product }, revalidate: 10 } : { notFound: true }),
   };
 };
 
@@ -93,5 +99,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     // ],
     fallback: true, // only pre generates de specified paths data
     // fallback: 'blocking', // will block until data is available, no need to check for it (ex: ...loading)
+    // fallback: false, // will trigger 404 error if the data is not found
   };
 };
