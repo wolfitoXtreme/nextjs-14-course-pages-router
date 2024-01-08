@@ -19,6 +19,10 @@ export type TEvent = {
   isFeatured: boolean;
 };
 
+export type TFeaturedEvents = {
+  featuredEvents: TEvent[];
+};
+
 export type TEventLogistics = Partial<
   Omit<TEvent, 'id' | 'title' | 'description' | 'isFeatured'>
 > & {

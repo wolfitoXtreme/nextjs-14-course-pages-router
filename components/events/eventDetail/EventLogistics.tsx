@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { TEventLogistics } from '@/types';
-import { humanReadableDate, formatLineEndings } from '@/utils';
+import { humanReadableDate, formatLineEndings } from '@/utils/utils';
 
 import LogisticsItem from './LogisticsItem';
 

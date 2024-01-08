@@ -1,4 +1,4 @@
-import { humanReadableDate } from '@/utils';
+import { humanReadableDate } from '@/utils/utils';
 
 import Button from '@/components/ui/Button';
 

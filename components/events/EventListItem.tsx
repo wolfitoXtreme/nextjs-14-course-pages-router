@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { TEvent } from '@/types';
-import { humanReadableDate, formatLineEndings } from '@/utils';
+import { humanReadableDate, formatLineEndings } from '@/utils/utils';
 
 import Button from '@/components/ui/Button';
 

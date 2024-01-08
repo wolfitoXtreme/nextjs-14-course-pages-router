@@ -1,11 +1,13 @@
 import Link from 'next/link';
+import { GetStaticProps } from 'next/types';
 
-import { getFeaturedEvents } from '@/data/dummy-data';
+import { TFeaturedEvents } from '@/types';
+import { getFeaturedEvents } from '@/utils/api';
 
 import EventList from '@/components/events/EventList';
 
-const HomePage = () => {
-  const featuredEvents = getFeaturedEvents();
+const HomePage = ({ featuredEvents }: TFeaturedEvents) => {
+  // const featuredEvents = getFeaturedEvents();
 
   return (
     <div>
@@ -20,6 +22,16 @@ const HomePage = () => {
       </div>
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const featuredEvents = await getFeaturedEvents();
+
+  return {
+    props: {
+      featuredEvents,
+    },
+  };
 };
 
 export default HomePage;
