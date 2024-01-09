@@ -1,67 +1,45 @@
-import { useRouter } from 'next/router';
-import { useRef } from 'react';
+import { GetServerSideProps } from 'next/types';
 
-import { getFilteredEvents } from '@/data/dummy-data';
-import { TDateParams } from '@/types';
+import { ParsedUrlQuery } from 'querystring';
+
+import { TDateParams, TEvent } from '@/types';
+import { getFilteredEvents } from '@/utils/api';
 
 import EventList from '@/components/events/EventList';
 import ResultsTitle from '@/components/events/ResultsTitle';
 import ErrorAlert from '@/components/ui/ErrorAlert';
 
-const FilteredEventsPage = () => {
-  const numYear = useRef(0);
-  const numMonth = useRef(0);
-  const filterError = useRef(false);
-
-  const {
-    query: { slug: filteredData },
-  } = useRouter();
-
-  const [filteredYear, filteredMonth] = (filteredData as TDateParams) || [];
-
-  if (filteredYear && filteredMonth) {
-    numYear.current = +filteredYear;
-    numMonth.current = +filteredMonth;
-
-    if (
-      isNaN(numYear.current) ||
-      isNaN(numMonth.current) ||
-      numYear.current > 2030 ||
-      numYear.current < 2021 ||
-      numMonth.current < 1 ||
-      numMonth.current > 12
-    ) {
-      filterError.current = true;
-    }
-  }
-
-  const filteredEvents = getFilteredEvents({
-    year: numYear.current,
-    month: numMonth.current,
-  });
-
-  const date = new Date(numYear.current, numMonth.current - 1);
+const FilteredEventsPage = ({
+  date: { numYear, numMonth },
+  events,
+  hasError,
+}: {
+  date: { numYear: number; numMonth: number };
+  events: TEvent[];
+  hasError: boolean;
+}) => {
+  const date = new Date(numYear, numMonth - 1);
 
   return (
     <>
       <ResultsTitle date={date} />
       <div>
-        {filteredData ? (
+        {events ? (
           <>
-            {filteredEvents.length ? (
-              <EventList events={filteredEvents} />
+            {events.length ? (
+              <EventList events={events} />
             ) : (
               <p className="center">No results found</p>
             )}
-            <pre>Event: {JSON.stringify(filteredData, null, 2)}</pre>
+            <pre>Event: {JSON.stringify(events, null, 2)}</pre>
             {'---'}
-            <pre>filteredEvents: {JSON.stringify(filteredEvents, null, 2)}</pre>
+            <pre>filteredEvents: {JSON.stringify(events, null, 2)}</pre>
           </>
         ) : (
           // useRouter load twice, once without the data...
           <p className="center">Loading...</p>
         )}
-        {filterError.current && (
+        {hasError && (
           <ErrorAlert>
             <p>Invalid filter please adjust your values.</p>
           </ErrorAlert>
@@ -69,6 +47,51 @@ const FilteredEventsPage = () => {
       </div>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { params } = context;
+  const { slug: filteredData } = params as ParsedUrlQuery;
+
+  const [filteredYear = 0, filteredMonth = 0] =
+    (filteredData as TDateParams) || [];
+
+  const numYear = +filteredYear;
+  const numMonth = +filteredMonth;
+
+  if (filteredYear && filteredMonth) {
+    if (
+      isNaN(numYear) ||
+      isNaN(numMonth) ||
+      numYear > 2030 ||
+      numYear < 2021 ||
+      numMonth < 1 ||
+      numMonth > 12
+    ) {
+      return {
+        props: { hasError: true }, // custom prop
+        // notFound: true, // shows 404 on error
+        // redirect: { // custom error page
+        //   destination: '/custom-error-page',
+        // },
+      };
+    }
+  }
+
+  const filteredEvents = await getFilteredEvents({
+    year: numYear,
+    month: numMonth,
+  });
+
+  return {
+    props: {
+      date: {
+        numYear,
+        numMonth,
+      },
+      events: filteredEvents,
+    },
+  };
 };
 
 export default FilteredEventsPage;

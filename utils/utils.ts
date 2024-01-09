@@ -12,3 +12,7 @@ export const formatLineEndings = (text: string) => {
 
   return text.replace(', ', '\n');
 };
+
+export const isEmpty = (obj: Record<string, unknown>) => {
+  return !Object.keys(obj).length;
+};

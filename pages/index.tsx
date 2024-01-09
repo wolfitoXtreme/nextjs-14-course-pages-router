@@ -7,8 +7,6 @@ import { getFeaturedEvents } from '@/utils/api';
 import EventList from '@/components/events/EventList';
 
 const HomePage = ({ featuredEvents }: TFeaturedEvents) => {
-  // const featuredEvents = getFeaturedEvents();
-
   return (
     <div>
       <h1>Home Page</h1>
@@ -24,6 +22,7 @@ const HomePage = ({ featuredEvents }: TFeaturedEvents) => {
   );
 };
 
+// All data pre-rendered, not likely to change
 export const getStaticProps: GetStaticProps = async () => {
   const featuredEvents = await getFeaturedEvents();
 
@@ -31,6 +30,8 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       featuredEvents,
     },
+    // will retrieve data again after given timeout (otherwise data will be static until rebuild)
+    revalidate: 1800,
   };
 };
 
