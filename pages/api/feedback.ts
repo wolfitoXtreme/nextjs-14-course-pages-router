@@ -18,6 +18,11 @@ import { v4 as uuid } from 'uuid';
 
 import { MethodE } from '@/types';
 
+const getPath = () => path.join(process.cwd(), 'data', 'feedback.json');
+
+const extractData = (filePath: string) =>
+  JSON.parse(fs.readFileSync(filePath).toString());
+
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
   const { method, body } = req;
 
@@ -30,15 +35,17 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
       text,
     };
 
-    const filepath = path.join(process.cwd(), 'data', 'feedback.json');
-
-    const currentData = JSON.parse(fs.readFileSync(filepath).toString());
+    const filePath = getPath();
+    const currentData = extractData(filePath);
     // eslint-disable-next-line no-console
     console.log({ currentData });
-    fs.writeFileSync(filepath, JSON.stringify([...currentData, newFeedback]));
+    fs.writeFileSync(filePath, JSON.stringify([...currentData, newFeedback]));
     res.status(201).json({ message: 'Success!', feedback: newFeedback });
   } else {
-    res.status(200).json({ message: 'this works' });
+    const filePath = getPath();
+    const currentData = extractData(filePath);
+
+    res.status(200).json({ message: 'this works', feedback: currentData });
   }
 };
 

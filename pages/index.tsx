@@ -1,18 +1,19 @@
 import Head from 'next/head';
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 
 import classNames from 'classnames';
 import { Inter } from 'next/font/google';
 
-import { MethodE } from '@/types';
+import { FeedbackT, MethodE } from '@/types';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  const [feedbackItems, setFeebackItems] = useState<FeedbackT[]>([]);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const feebackInputRef = useRef<HTMLTextAreaElement>(null);
 
-  const sunbmitFormHandler = (event: FormEvent) => {
+  const submitFormHandler = (event: FormEvent) => {
     event.preventDefault();
     const email = emailInputRef.current?.value;
     const text = feebackInputRef.current?.value;
@@ -35,6 +36,13 @@ export default function Home() {
       .then(data => console.log({ data }));
   };
 
+  const loadDataHandler = () => {
+    fetch('/api/feedback')
+      .then(response => response.json())
+      // eslint-disable-next-line no-console
+      .then(({ feedback }) => setFeebackItems(feedback));
+  };
+
   return (
     <>
       <Head>
@@ -44,7 +52,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={classNames(inter.className)}>
-        <form onSubmit={sunbmitFormHandler}>
+        <h1>Send Feedback</h1>
+        <form onSubmit={submitFormHandler}>
           <div className="field">
             <label htmlFor="email">Your email:</label>
             <input ref={emailInputRef} id="email" name="email" type="email" />
@@ -59,6 +68,21 @@ export default function Home() {
           </div>
           <button>Send Feedback</button>
         </form>
+        <h1>Retrieve Feedback</h1>
+        <button onClick={loadDataHandler}>Get Feedback</button>
+        <ul>
+          {feedbackItems.map(({ id, email, text }) => (
+            <li key={id}>
+              <p>
+                id: {id}
+                <br />
+                email: {email}
+                <br />
+                text: {text}
+              </p>
+            </li>
+          ))}
+        </ul>
       </main>
     </>
   );
