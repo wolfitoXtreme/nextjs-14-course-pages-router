@@ -13,6 +13,7 @@ module.exports = {
         ignoreFontFamilies: ['[$].*'],
       },
     ],
+    'function-no-unknown': [true, { ignoreFunctions: ['lighten', 'darken'] }],
     // indentation: 2, TODO: COnflicts with prettier
     'order/order': ['custom-properties', 'declarations'],
     'order/properties-order': [

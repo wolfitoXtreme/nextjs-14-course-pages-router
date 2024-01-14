@@ -77,12 +77,6 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 a {
@@ -93,5 +87,36 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.field {
+  display: grid;
+  grid-template-columns: 11fr;
+  grid-template-rows: 1fr;
+}
+
+button {
+  margin: 1rem 0;
+  padding: 1rem;
+  color: white;
+  border-style: none;
+  outline: none;
+  background-color: black;
+  transform: scale(1);
+  transition: transform 100ms;
+
+  &:hover {
+    background-color: lighten(black, 15%);
+  }
+
+  &:focus {
+    background-color: lighten(black, 30%);
+    transform: scale(0.95);
   }
 }

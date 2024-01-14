@@ -1,16 +1,40 @@
 import Head from 'next/head';
+import { FormEvent, useRef } from 'react';
 
 import classNames from 'classnames';
 import { Inter } from 'next/font/google';
 
-import NextJSLogo from '@/public/images/next.svg';
-import VercelLogo from '@/public/images/vercel.svg';
-
-import styles from '@/styles/Home.module.scss';
+import { MethodE } from '@/types';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const feebackInputRef = useRef<HTMLTextAreaElement>(null);
+
+  const sunbmitFormHandler = (event: FormEvent) => {
+    event.preventDefault();
+    const email = emailInputRef.current?.value;
+    const text = feebackInputRef.current?.value;
+
+    // eslint-disable-next-line no-console
+    console.log({ email }, { text });
+
+    fetch('/api/feedback', {
+      method: MethodE.POST,
+      body: JSON.stringify({
+        email,
+        text,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      // eslint-disable-next-line no-console
+      .then(data => console.log({ data }));
+  };
+
   return (
     <>
       <Head>
@@ -19,91 +43,22 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={classNames(styles.main, inter.className)}>
-        <div
-          className={classNames(
-            styles.description,
-            styles['description--test-variant'],
-          )}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer">
-              By{' '}
-              <VercelLogo
-                style={{ width: '80px', height: 'auto' }}
-                className={styles['vercel-logo']}
-              />
-            </a>
+      <main className={classNames(inter.className)}>
+        <form onSubmit={sunbmitFormHandler}>
+          <div className="field">
+            <label htmlFor="email">Your email:</label>
+            <input ref={emailInputRef} id="email" name="email" type="email" />
           </div>
-        </div>
-
-        <div className={styles.center}>
-          <NextJSLogo
-            style={{ width: '180px', height: 'auto' }}
-            className={styles.logo}
-          />
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer">
-            <h2>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer">
-            <h2>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer">
-            <h2>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer">
-            <h2>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
+          <div className="field">
+            <label htmlFor="feedback">Your feedback:</label>
+            <textarea
+              ref={feebackInputRef}
+              rows={5}
+              id="feedback"
+              name="feedback"></textarea>
+          </div>
+          <button>Send Feedback</button>
+        </form>
       </main>
     </>
   );
