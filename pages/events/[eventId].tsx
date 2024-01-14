@@ -1,10 +1,11 @@
+import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps } from 'next/types';
 
 import { ParsedUrlQuery } from 'querystring';
 
 import { TEvent } from '@/types';
 import { getEventById, getFeaturedEvents } from '@/utils/api';
-import { isEmpty } from '@/utils/utils';
+import { trimWords, isEmpty } from '@/utils/utils';
 
 import EventContent from '@/components/events/eventDetail/EventContent';
 import EventLogistics from '@/components/events/eventDetail/EventLogistics';
@@ -21,6 +22,13 @@ const EventDetailPage = ({ event }: { event: TEvent }) => {
 
   return (
     <>
+      <Head>
+        <title>NextJS Events: {title}</title>
+        <meta
+          name="description"
+          content={description ? trimWords(description, undefined) : ''}
+        />
+      </Head>
       {event && !isEmpty(event) ? (
         <>
           <EventSummary title={title} />

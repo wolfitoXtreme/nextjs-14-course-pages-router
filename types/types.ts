@@ -5,6 +5,8 @@ export type SampleAT = {
 
 export type SampleBT = [a: string, b: number];
 
+export type TTrimWordsParams = [text: string, length?: number, flat?: boolean];
+
 export type TDateParams = [year?: string, month?: string];
 
 export type TDateFilter = { year: number; month: number };

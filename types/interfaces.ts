@@ -1,4 +1,4 @@
-import { SampleAT, SampleBT, TEvent } from '@/types/types';
+import { SampleAT, SampleBT, TEvent, TTrimWordsParams } from '@/types/types';
 
 export interface SampleAI<P = SampleAT> {
   (args: P): string;
@@ -14,4 +14,8 @@ export interface SampleCI {
 
 export interface IEvents {
   events: TEvent[];
+}
+
+export interface ITrimWords {
+  (...args: TTrimWordsParams): string;
 }

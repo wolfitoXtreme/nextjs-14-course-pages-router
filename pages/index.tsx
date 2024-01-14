@@ -8,17 +8,19 @@ import EventList from '@/components/events/EventList';
 
 const HomePage = ({ featuredEvents }: TFeaturedEvents) => {
   return (
-    <div>
-      <h1>Home Page</h1>
+    <>
       <div>
-        <h2>Featured Events</h2>
+        <h1>Home Page</h1>
+        <div>
+          <h2>Featured Events</h2>
 
-        <EventList events={featuredEvents} />
-        <p>
-          <Link href="/events">All Events</Link>
-        </p>
+          <EventList events={featuredEvents} />
+          <p>
+            <Link href="/events">All Events</Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -21,7 +21,7 @@ const EventListItem: React.FC<{ event: TEvent }> = ({
     <>
       <div className={styles.item}>
         <div className={styles.image}>
-          <Image src={`/${image}`} fill alt={title} />
+          <Image src={`/${image}`} width={370} height={244} alt={title} />
         </div>
         <div className={styles.content}>
           <div className={styles.summary}>

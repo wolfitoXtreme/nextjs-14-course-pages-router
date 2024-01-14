@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 // import { GetServerSideProps } from 'next/types';
 import { useEffect, useRef, useState } from 'react';
@@ -17,6 +18,7 @@ const FilteredEventsPage = () => {
   const [loadedEvents, setLoadedEvents] = useState<TEvent[]>();
   const numYear = useRef(0);
   const numMonth = useRef(0);
+  const metaDescription = useRef('A list of filtered events.');
   const filterError = useRef(false);
 
   const {
@@ -56,6 +58,11 @@ const FilteredEventsPage = () => {
     ) {
       filterError.current = true;
     }
+
+    // will change default metaDescription if not 0 (pre-rendered)
+    if (!!numYear.current && !!numMonth.current) {
+      metaDescription.current = `Events for ${numMonth.current}/${numYear.current}`;
+    }
   }
 
   const filteredEvents =
@@ -72,6 +79,10 @@ const FilteredEventsPage = () => {
 
   return (
     <>
+      <Head>
+        <title>NextJS Events: Filtered events</title>
+        <meta name="description" content={metaDescription.current} />
+      </Head>
       <ResultsTitle date={date} />
       <div>
         {loadedEvents ? (

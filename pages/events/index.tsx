@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { GetStaticProps } from 'next/types';
 
@@ -17,6 +18,10 @@ const AllEventsPage = ({ events }: { events: TEvent[] }) => {
 
   return (
     <>
+      <Head>
+        <title>NextJS Events: All Events</title>
+        <meta name="description" content="Al Events Lorem ipsum..." />
+      </Head>
       <EventsSearch onSearch={findEventsHandler} />
       <EventList events={events} />
     </>
