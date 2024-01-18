@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { FeedbackT, MethodE } from '@/types';
 
-import { getPath, extractData } from './feedback';
+import { getPath, extractData } from './index';
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
   const {

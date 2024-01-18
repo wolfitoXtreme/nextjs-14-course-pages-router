@@ -1,21 +1,24 @@
+import Link from 'next/link';
 import { GetStaticProps } from 'next/types';
 import { useState } from 'react';
 
-import { getPath, extractData } from '@/api/feedback';
 import { FeedbackT } from '@/types';
+
+import { getPath, extractData } from '@/pages/api/feedback';
 
 const FeedbackPage = ({ feedbackItems }: { feedbackItems: FeedbackT[] }) => {
   // just for demonstration as data is already present in props
   const [detailsData, setDetailsData] = useState<FeedbackT>();
   const loadFeedbackHandler = (id: string) => {
-    fetch(`/api/${id}`) // calling dynamic api route [feedbackId].ts
+    fetch(`/api/feedback/${id}`) // calling dynamic api route [feedbackId].ts
       .then(response => response.json())
       // error handling...
       .then(data => setDetailsData(data.feedbackItemData));
   };
 
   return (
-    <>
+    <main>
+      <h1>Available Feedbacks:</h1>
       <ul>
         {feedbackItems.map(({ id }) => (
           <li key={id}>
@@ -33,7 +36,7 @@ const FeedbackPage = ({ feedbackItems }: { feedbackItems: FeedbackT[] }) => {
           <pre>{JSON.stringify(detailsData, null, 2)}</pre>
         </>
       )}
-    </>
+    </main>
   );
 };
 
