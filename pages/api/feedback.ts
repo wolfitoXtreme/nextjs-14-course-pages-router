@@ -18,9 +18,9 @@ import { v4 as uuid } from 'uuid';
 
 import { MethodE } from '@/types';
 
-const getPath = () => path.join(process.cwd(), 'data', 'feedback.json');
+export const getPath = () => path.join(process.cwd(), 'data', 'feedback.json');
 
-const extractData = (filePath: string) =>
+export const extractData = (filePath: string) =>
   JSON.parse(fs.readFileSync(filePath).toString());
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {

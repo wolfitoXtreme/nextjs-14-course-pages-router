@@ -44,7 +44,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '@/{types,lib,utils}{/,}**',
+            pattern: '@/{types,lib,utils,api}{/,}**',
             group: 'internal',
             position: 'before',
           },

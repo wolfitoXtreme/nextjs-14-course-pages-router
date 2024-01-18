@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { FormEvent, useRef, useState } from 'react';
 
 import classNames from 'classnames';
@@ -53,6 +54,14 @@ export default function Home() {
       </Head>
       <main className={classNames(inter.className)}>
         <h1>Send Feedback</h1>
+        <nav>
+          <h5>Menu</h5>
+          <ul>
+            <li>
+              <Link href="/feedback">List of feedbacks</Link>
+            </li>
+          </ul>
+        </nav>
         <form onSubmit={submitFormHandler}>
           <div className="field">
             <label htmlFor="email">Your email:</label>
