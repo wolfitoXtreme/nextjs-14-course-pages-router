@@ -1,4 +1,10 @@
-import { SampleAT, SampleBT, TEvent, TTrimWordsParams } from '@/types/types';
+import {
+  SampleAT,
+  SampleBT,
+  TComment,
+  TEvent,
+  TTrimWordsParams,
+} from '@/types/types';
 
 export interface SampleAI<P = SampleAT> {
   (args: P): string;
@@ -14,6 +20,10 @@ export interface SampleCI {
 
 export interface IEvents {
   events: TEvent[];
+}
+
+export interface INewComment {
+  onAddComment: (args: TComment) => void;
 }
 
 export interface ITrimWords {

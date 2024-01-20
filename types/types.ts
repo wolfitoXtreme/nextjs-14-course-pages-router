@@ -40,3 +40,9 @@ export type TButton = {
 export type TOnSearch = {
   onSearch: (...params: TDateParams) => void;
 };
+
+export type TComment = {
+  email: string;
+  name: string;
+  text: string;
+};

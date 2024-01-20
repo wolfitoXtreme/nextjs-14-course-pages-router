@@ -5,20 +5,18 @@ import { TFeaturedEvents } from '@/types';
 import { getFeaturedEvents } from '@/utils/api';
 
 import EventList from '@/components/events/EventList';
+import NewsletterRegistration from '@/components/input/NewsletterRegistration';
 
 const HomePage = ({ featuredEvents }: TFeaturedEvents) => {
   return (
     <>
       <div>
-        <h1>Home Page</h1>
-        <div>
-          <h2>Featured Events</h2>
+        <NewsletterRegistration />
 
-          <EventList events={featuredEvents} />
-          <p>
-            <Link href="/events">All Events</Link>
-          </p>
-        </div>
+        <EventList events={featuredEvents} />
+        <p>
+          <Link href="/events">All Events</Link>
+        </p>
       </div>
     </>
   );

@@ -10,6 +10,7 @@ import { trimWords, isEmpty } from '@/utils/utils';
 import EventContent from '@/components/events/eventDetail/EventContent';
 import EventLogistics from '@/components/events/eventDetail/EventLogistics';
 import EventSummary from '@/components/events/eventDetail/EventSummary';
+import Comments from '@/components/input/Comments';
 
 const EventDetailPage = ({ event }: { event: TEvent }) => {
   // const {
@@ -18,7 +19,7 @@ const EventDetailPage = ({ event }: { event: TEvent }) => {
 
   // const event = getEventById(eventId);
 
-  const { title, date, location, image, description } = event || {};
+  const { id, title, date, location, image, description } = event || {};
 
   return (
     <>
@@ -41,6 +42,7 @@ const EventDetailPage = ({ event }: { event: TEvent }) => {
           <EventContent>
             <p>{description}</p>
           </EventContent>
+          <Comments id={id} />
         </>
       ) : (
         <div className="center">
