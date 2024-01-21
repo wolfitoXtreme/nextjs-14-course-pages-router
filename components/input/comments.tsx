@@ -1,22 +1,41 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { EnumRequestMethod, TComment } from '@/types';
 
 import CommentList from './CommentList';
 import NewComment from './NewComment';
 
 import styles from './Comments.module.scss';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Comments: React.FC<{ id: string }> = ({ id }) => {
-  // const { eventId } = props;
 
+const Comments: React.FC<{ id: string }> = ({ id }) => {
   const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState<TComment[]>([]);
+
+  useEffect(() => {
+    if (showComments) {
+      fetch(`/api/comments/${id}`)
+        .then(response => response.json())
+        .then(data => {
+          setComments(data.comments as TComment[]);
+        });
+    }
+  }, [id, showComments]);
 
   const toggleCommentsHandler = () => {
     setShowComments(prevStatus => !prevStatus);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-  const addCommentHandler = (commentData: any) => {
-    // send data to API
+  const addCommentHandler = (commentData: Omit<TComment, 'id'>) => {
+    fetch(`/api/comments/${id}`, {
+      body: JSON.stringify(commentData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: EnumRequestMethod.POST,
+    })
+      .then(response => response.json())
+      // eslint-disable-next-line no-console
+      .then(data => console.log({ data }));
   };
 
   return (
@@ -25,7 +44,7 @@ const Comments: React.FC<{ id: string }> = ({ id }) => {
         {showComments ? 'Hide' : 'Show'} Comments
       </button>
       {showComments && <NewComment onAddComment={addCommentHandler} />}
-      {showComments && <CommentList />}
+      {showComments && <CommentList comments={comments} />}
     </section>
   );
 };

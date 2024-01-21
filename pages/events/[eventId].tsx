@@ -5,7 +5,7 @@ import { ParsedUrlQuery } from 'querystring';
 
 import { TEvent } from '@/types';
 import { getEventById, getFeaturedEvents } from '@/utils/api';
-import { trimWords, isEmpty } from '@/utils/utils';
+import { isEmpty, trimWords } from '@/utils/utils';
 
 import EventContent from '@/components/events/eventDetail/EventContent';
 import EventLogistics from '@/components/events/eventDetail/EventLogistics';
@@ -19,7 +19,7 @@ const EventDetailPage = ({ event }: { event: TEvent }) => {
 
   // const event = getEventById(eventId);
 
-  const { id, title, date, location, image, description } = event || {};
+  const { id, date, description, image, location, title } = event || {};
 
   return (
     <>
@@ -80,8 +80,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }));
 
   return {
-    paths: pathsWithParams,
     fallback: true,
+    paths: pathsWithParams,
   };
 };
 

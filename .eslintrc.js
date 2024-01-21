@@ -1,3 +1,5 @@
+/* eslint-disable perfectionist/sort-objects */
+/* eslint-disable sort-keys */
 module.exports = {
   env: {
     browser: true,
@@ -19,9 +21,10 @@ module.exports = {
     'eslint-config-next',
     'next/core-web-vitals',
   ],
-  plugins: ['import'],
+  plugins: ['import', 'perfectionist'],
   ignorePatterns: ['!.stylelintrc*', '!.lintstagedrc*'],
   rules: {
+    'adjacent-overload-signatures': 'off',
     'arrow-parens': ['warn', 'as-needed'],
     'comma-dangle': ['warn', 'always-multiline'],
     'import/newline-after-import': ['warn', { count: 1, exactCount: true }],
@@ -44,7 +47,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '@/{types,lib,data,utils}{/,}**',
+            pattern: '@/{types,lib,data,utils,api}{/,}**',
             group: 'internal',
             position: 'before',
           },
@@ -94,6 +97,61 @@ module.exports = {
     'padding-line-between-statements': [
       'warn',
       { blankLine: 'always', prev: '*', next: ['return', 'export'] },
+    ],
+    'perfectionist/sort-enums': [
+      'error',
+      {
+        type: 'natural',
+        order: 'asc',
+      },
+    ],
+    'perfectionist/sort-interfaces': [
+      'warn',
+      {
+        type: 'natural',
+        order: 'asc',
+        groups: ['id', 'unknown'],
+        'custom-groups': {
+          id: 'id',
+        },
+      },
+    ],
+    'perfectionist/sort-named-imports': [
+      'warn',
+      {
+        type: 'natural',
+        order: 'asc',
+      },
+    ],
+    'perfectionist/sort-objects': [
+      'warn',
+      {
+        type: 'natural',
+        order: 'asc',
+        'partition-by-comment': 'Part:**',
+        groups: ['id', 'unknown'],
+        'custom-groups': {
+          id: 'id',
+        },
+      },
+    ],
+    'perfectionist/sort-object-types': [
+      'warn',
+      {
+        type: 'natural',
+        order: 'asc',
+        groups: ['id', 'unknown'],
+        'custom-groups': {
+          id: 'id',
+        },
+      },
+    ],
+    'perfectionist/sort-union-types': [
+      'warn',
+      {
+        type: 'natural',
+        order: 'asc',
+      },
     ],
     'prefer-const': 2,
     '@typescript-eslint/no-unused-vars': ['warn'],

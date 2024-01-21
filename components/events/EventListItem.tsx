@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { TEvent } from '@/types';
-import { humanReadableDate, formatLineEndings } from '@/utils/utils';
+import { formatLineEndings, humanReadableDate } from '@/utils/utils';
 
 import Button from '@/components/ui/Button';
 
@@ -12,7 +12,7 @@ import DateIcon from '@/assets/icons/date-icon.svg';
 import styles from './EventListItem.module.scss';
 
 const EventListItem: React.FC<{ event: TEvent }> = ({
-  event: { id, title, location, date, image },
+  event: { id, date, image, location, title },
 }) => {
   const formattedDate = humanReadableDate(date as Date);
   const formattedAddress = formatLineEndings(location);

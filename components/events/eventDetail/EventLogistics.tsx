@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { TEventLogistics } from '@/types';
-import { humanReadableDate, formatLineEndings } from '@/utils/utils';
+import { formatLineEndings, humanReadableDate } from '@/utils/utils';
 
 import LogisticsItem from './LogisticsItem';
 
@@ -12,9 +12,9 @@ import styles from './EventLogistics.module.scss';
 
 const EventLogistics: React.FC<TEventLogistics> = ({
   date,
-  location,
   image,
   imageAlt,
+  location,
 }) => {
   const formattedDate = humanReadableDate(date as Date);
   const formattedAddress = formatLineEndings(location as string);

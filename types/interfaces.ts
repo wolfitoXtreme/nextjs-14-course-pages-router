@@ -1,20 +1,20 @@
 import {
-  SampleAT,
-  SampleBT,
   TComment,
   TEvent,
+  TSampleA,
+  TSampleB,
   TTrimWordsParams,
 } from '@/types/types';
 
-export interface SampleAI<P = SampleAT> {
+export interface ISampleA<P = TSampleA> {
   (args: P): string;
 }
 
-export interface SampleBI {
-  (...args: SampleBT): string;
+export interface ISampleB {
+  (...args: TSampleB): string;
 }
 
-export interface SampleCI {
+export interface ISampleC {
   (...args: [a: string, b: number]): string;
 }
 
@@ -23,7 +23,7 @@ export interface IEvents {
 }
 
 export interface INewComment {
-  onAddComment: (args: TComment) => void;
+  onAddComment: (args: Omit<TComment, 'id'>) => void;
 }
 
 export interface ITrimWords {

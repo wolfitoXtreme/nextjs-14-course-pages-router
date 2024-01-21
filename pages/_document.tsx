@@ -1,4 +1,5 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+// eslint-disable-next-line object-curly-newline
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 // Any custom modifications go here...
 class CustomDocument extends Document {
   render() {

@@ -1,14 +1,34 @@
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useRef } from 'react';
+
+import { EnumRequestMethod } from '@/types';
 
 import styles from './NewsletterRegistration.module.scss';
 
 const NewsletterRegistration = () => {
+  const emailInputRef = useRef<HTMLInputElement>(null);
+
   const registrationHandler: FormEventHandler<HTMLFormElement> = event => {
     event.preventDefault();
 
-    // fetch user input (state or refs)
-    // optional: validate input
-    // send valid data to API
+    // ... Front End validation
+    fetch('/api/newsletter', {
+      body: JSON.stringify({ email: emailInputRef.current?.value }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: EnumRequestMethod.POST,
+    })
+      .then(response => {
+        if (response.status === 422) {
+          throw new Error('Invalid email');
+        }
+
+        return response.json();
+      })
+      // eslint-disable-next-line no-console
+      .then(data => console.log('received data', { data }))
+      // eslint-disable-next-line no-console
+      .catch(error => console.warn('server error', { error }));
   };
 
   return (
@@ -17,6 +37,7 @@ const NewsletterRegistration = () => {
       <form onSubmit={registrationHandler}>
         <div className={styles.control}>
           <input
+            ref={emailInputRef}
             type="email"
             id="email"
             placeholder="Your email"

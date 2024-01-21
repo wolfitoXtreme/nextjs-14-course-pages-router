@@ -1,4 +1,4 @@
-import { useRef, FormEventHandler } from 'react';
+import { FormEventHandler, useRef } from 'react';
 
 import { TOnSearch } from '@/types';
 

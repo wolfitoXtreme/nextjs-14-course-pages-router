@@ -1,21 +1,18 @@
+import { TComment } from '@/types';
+
 import styles from './CommentList.module.scss';
 
-const CommentList = () => {
+const CommentList: React.FC<{ comments: TComment[] }> = ({ comments }) => {
   return (
     <ul className={styles.comments}>
-      {/* Render list of comments - fetched from API */}
-      <li>
-        <p>My comment is amazing!</p>
-        <div>
-          By <address>Maximilian</address>
-        </div>
-      </li>
-      <li>
-        <p>My comment is amazing!</p>
-        <div>
-          By <address>Maximilian</address>
-        </div>
-      </li>
+      {comments.map(({ id, name, text }) => (
+        <li key={id}>
+          <p>{text}</p>
+          <div>
+            By <address>{name}</address>
+          </div>
+        </li>
+      ))}
     </ul>
   );
 };

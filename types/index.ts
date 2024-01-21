@@ -4,13 +4,13 @@ export * from './interfaces';
 export * from './enums';
 
 // sample usage
-// import { SampleAI, SampleBI } from '@/types';
+// import { ISampleA, ISampleB } from '@/types';
 
-// const testFuncA:SampleAI =({ a, b }) => {
+// const testFuncA:ISampleA =({ a, b }) => {
 //   return `${a} ${b}`;
 // };
 
-// const testFuncB:SampleBI =(a, b) => {
+// const testFuncB:ISampleB =(a, b) => {
 //   return `${a} ${b}`;
 // };
 

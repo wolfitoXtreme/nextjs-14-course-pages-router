@@ -4,7 +4,7 @@ import { TButton } from '@/types';
 
 import styles from './button.module.scss';
 
-const Button: React.FC<TButton> = ({ link, onClick, children }) => (
+const Button: React.FC<TButton> = ({ children, link, onClick }) => (
   <>
     {link ? (
       <Link href={link} className={styles.btn}>

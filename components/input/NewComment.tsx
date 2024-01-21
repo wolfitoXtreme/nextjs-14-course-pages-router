@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 
 import { INewComment } from '@/types';
 
@@ -12,7 +12,7 @@ const NewComment: React.FC<INewComment> = ({ onAddComment }) => {
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const sendCommentHandler = (event: Event) => {
+  const sendCommentHandler = (event: FormEvent) => {
     event.preventDefault();
 
     const enteredEmail = emailInputRef.current?.value;
@@ -41,7 +41,7 @@ const NewComment: React.FC<INewComment> = ({ onAddComment }) => {
   };
 
   return (
-    <form className={style.form}>
+    <form className={style.form} onSubmit={sendCommentHandler}>
       <div className={style.row}>
         <div className={style.control}>
           <label htmlFor="email">Your email</label>

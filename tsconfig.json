@@ -23,6 +23,7 @@
     ],
     "paths": {
       "@/*": ["./*"],
+      "@/api/*": ["./pages/api/*"],
       "@/public/*": ["./public/*"],
       "@/components/*": ["./components/*"],
       "@/assets/*": ["./assets/*"],

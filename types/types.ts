@@ -1,24 +1,24 @@
-export type SampleAT = {
+export type TSampleA = {
   a: string;
   b: number;
 };
 
-export type SampleBT = [a: string, b: number];
+export type TSampleB = [a: string, b: number];
 
 export type TTrimWordsParams = [text: string, length?: number, flat?: boolean];
 
 export type TDateParams = [year?: string, month?: string];
 
-export type TDateFilter = { year: number; month: number };
+export type TDateFilter = { month: number; year: number };
 
 export type TEvent = {
   id: string;
-  title: string;
+  date: Date | string;
   description: string;
-  location: string;
-  date: string | Date;
   image: string;
   isFeatured: boolean;
+  location: string;
+  title: string;
 };
 
 export type TFeaturedEvents = {
@@ -26,15 +26,15 @@ export type TFeaturedEvents = {
 };
 
 export type TEventLogistics = Partial<
-  Omit<TEvent, 'id' | 'title' | 'description' | 'isFeatured'>
+  Omit<TEvent, 'description' | 'id' | 'isFeatured' | 'title'>
 > & {
   imageAlt?: string;
 };
 
 export type TButton = {
+  children?: React.ReactNode;
   link?: string;
   onClick?: () => void;
-  children?: React.ReactNode;
 };
 
 export type TOnSearch = {
@@ -42,6 +42,7 @@ export type TOnSearch = {
 };
 
 export type TComment = {
+  id: string;
   email: string;
   name: string;
   text: string;
