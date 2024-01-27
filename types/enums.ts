@@ -12,3 +12,9 @@ export enum EnumSortResults {
   ASCENDANT = 1,
   DESCENDANT = -1,
 }
+
+export enum EnumNotificationStatus {
+  ERROR = 'error',
+  PENDING = 'pending',
+  SUCCESS = 'success',
+}

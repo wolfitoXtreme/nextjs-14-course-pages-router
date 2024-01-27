@@ -52,6 +52,11 @@ module.exports = {
             position: 'before',
           },
           {
+            pattern: '@/context/**',
+            group: 'parent',
+            position: 'before',
+          },
+          {
             pattern: '@/components/**',
             group: 'parent',
             position: 'before',
@@ -80,7 +85,7 @@ module.exports = {
         },
       },
     ],
-    indent: ['error', 2],
+    // indent: ['error', 2],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-unused-vars': ['off'],

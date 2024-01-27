@@ -1,10 +1,12 @@
+import { EnumNotificationStatus } from './enums';
 import {
   TComment,
   TEvent,
+  TNotification,
   TSampleA,
   TSampleB,
   TTrimWordsParams,
-} from '@/types/types';
+} from './types';
 
 export interface ISampleA<P = TSampleA> {
   (args: P): string;
@@ -29,3 +31,5 @@ export interface INewComment {
 export interface ITrimWords {
   (...args: TTrimWordsParams): string;
 }
+
+export interface INotification extends TNotification {}

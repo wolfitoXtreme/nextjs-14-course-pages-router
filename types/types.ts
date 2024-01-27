@@ -1,3 +1,5 @@
+import { EnumNotificationStatus } from './enums';
+
 export type TSampleA = {
   a: string;
   b: number;
@@ -46,4 +48,10 @@ export type TComment = {
   email: string;
   name: string;
   text: string;
+};
+
+export type TNotification = {
+  message: string;
+  status: EnumNotificationStatus;
+  title: string;
 };

@@ -11,7 +11,6 @@ const NewComment: React.FC<INewComment> = ({ onAddComment }) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const sendCommentHandler = (event: FormEvent) => {
     event.preventDefault();
 
