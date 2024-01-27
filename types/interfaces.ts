@@ -23,7 +23,7 @@ export interface IEvents {
 }
 
 export interface INewComment {
-  onAddComment: (args: Omit<TComment, 'id'>) => void;
+  onAddComment: (args: Omit<TComment, '_id'>) => void;
 }
 
 export interface ITrimWords {

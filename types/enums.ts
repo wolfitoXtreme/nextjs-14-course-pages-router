@@ -7,3 +7,8 @@ export enum EnumRequestMethod {
   GET = 'GET',
   POST = 'POST',
 }
+
+export enum EnumSortResults {
+  ASCENDANT = 1,
+  DESCENDANT = -1,
+}

@@ -10,7 +10,7 @@ import { isEmpty, trimWords } from '@/utils/utils';
 import EventContent from '@/components/events/eventDetail/EventContent';
 import EventLogistics from '@/components/events/eventDetail/EventLogistics';
 import EventSummary from '@/components/events/eventDetail/EventSummary';
-import Comments from '@/components/input/Comments';
+import Comments from '@/components/input/comments';
 
 const EventDetailPage = ({ event }: { event: TEvent }) => {
   // const {
@@ -24,7 +24,8 @@ const EventDetailPage = ({ event }: { event: TEvent }) => {
   return (
     <>
       <Head>
-        <title>NextJS Events: {title}</title>
+        {/* Passing title as a template literal as NextJS complains for multiple nodes  */}
+        <title>{`NextJS Events: ${title}`}</title>
         <meta
           name="description"
           content={description ? trimWords(description, undefined) : ''}

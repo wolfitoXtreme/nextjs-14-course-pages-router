@@ -25,7 +25,7 @@ const Comments: React.FC<{ id: string }> = ({ id }) => {
     setShowComments(prevStatus => !prevStatus);
   };
 
-  const addCommentHandler = (commentData: Omit<TComment, 'id'>) => {
+  const addCommentHandler = (commentData: Omit<TComment, '_id'>) => {
     fetch(`/api/comments/${id}`, {
       body: JSON.stringify(commentData),
       headers: {
@@ -44,7 +44,12 @@ const Comments: React.FC<{ id: string }> = ({ id }) => {
         {showComments ? 'Hide' : 'Show'} Comments
       </button>
       {showComments && <NewComment onAddComment={addCommentHandler} />}
-      {showComments && <CommentList comments={comments} />}
+      {showComments && (
+        <>
+          <h3>Comments for event {id}:</h3>
+          <CommentList comments={comments || []} />
+        </>
+      )}
     </section>
   );
 };

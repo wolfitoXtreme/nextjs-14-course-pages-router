@@ -42,7 +42,7 @@ export type TOnSearch = {
 };
 
 export type TComment = {
-  id: string;
+  _id: string;
   email: string;
   name: string;
   text: string;

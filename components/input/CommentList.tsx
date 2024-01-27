@@ -5,8 +5,8 @@ import styles from './CommentList.module.scss';
 const CommentList: React.FC<{ comments: TComment[] }> = ({ comments }) => {
   return (
     <ul className={styles.comments}>
-      {comments.map(({ id, name, text }) => (
-        <li key={id}>
+      {comments.map(({ _id, name, text }) => (
+        <li key={_id}>
           <p>{text}</p>
           <div>
             By <address>{name}</address>
