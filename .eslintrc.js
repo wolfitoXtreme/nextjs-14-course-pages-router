@@ -1,3 +1,5 @@
+/* eslint-disable perfectionist/sort-objects */
+/* eslint-disable sort-keys */
 module.exports = {
   env: {
     browser: true,
@@ -19,9 +21,10 @@ module.exports = {
     'eslint-config-next',
     'next/core-web-vitals',
   ],
-  plugins: ['import'],
-  ignorePatterns: ['!.stylelintrc*', '!.lintstagedrc*'],
+  plugins: ['import', 'perfectionist'],
+  ignorePatterns: ['!.stylelintrc*', '!.lintstagedrc*', '!.prettierrc*'],
   rules: {
+    'adjacent-overload-signatures': 'off',
     'arrow-parens': ['warn', 'as-needed'],
     'comma-dangle': ['warn', 'always-multiline'],
     'import/newline-after-import': ['warn', { count: 1, exactCount: true }],
@@ -44,8 +47,13 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '@/{types,lib,utils}{/,}**',
+            pattern: '@/{types,lib,data,utils,api}{/,}**',
             group: 'internal',
+            position: 'before',
+          },
+          {
+            pattern: '@/context/**',
+            group: 'parent',
             position: 'before',
           },
           {
@@ -77,7 +85,7 @@ module.exports = {
         },
       },
     ],
-    indent: ['error', 2],
+    // indent: ['error', 2],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-unused-vars': ['off'],
@@ -94,6 +102,61 @@ module.exports = {
     'padding-line-between-statements': [
       'warn',
       { blankLine: 'always', prev: '*', next: ['return', 'export'] },
+    ],
+    'perfectionist/sort-enums': [
+      'error',
+      {
+        type: 'natural',
+        order: 'asc',
+      },
+    ],
+    'perfectionist/sort-interfaces': [
+      'warn',
+      {
+        type: 'natural',
+        order: 'asc',
+        groups: ['id', 'unknown'],
+        'custom-groups': {
+          id: 'id',
+        },
+      },
+    ],
+    'perfectionist/sort-named-imports': [
+      'warn',
+      {
+        type: 'natural',
+        order: 'asc',
+      },
+    ],
+    'perfectionist/sort-objects': [
+      'warn',
+      {
+        type: 'natural',
+        order: 'asc',
+        'partition-by-comment': 'Part:**',
+        groups: ['id', 'unknown'],
+        'custom-groups': {
+          id: 'id',
+        },
+      },
+    ],
+    'perfectionist/sort-object-types': [
+      'warn',
+      {
+        type: 'natural',
+        order: 'asc',
+        groups: ['id', 'unknown'],
+        'custom-groups': {
+          id: 'id',
+        },
+      },
+    ],
+    'perfectionist/sort-union-types': [
+      'warn',
+      {
+        type: 'natural',
+        order: 'asc',
+      },
     ],
     'prefer-const': 2,
     '@typescript-eslint/no-unused-vars': ['warn'],
