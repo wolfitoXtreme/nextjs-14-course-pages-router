@@ -1,5 +1,5 @@
-import FeaturedPosts from '@/components/homePage/FeaturedPosts';
-import Hero from '@/components/homePage/Hero';
+import FeaturedPosts from '@/components/homepage/FeaturedPosts';
+import Hero from '@/components/homepage/Hero';
 
 const DUMMY_POSTS = [
   {
@@ -31,7 +31,8 @@ const DUMMY_POSTS = [
     title: 'Getting Started with NextJS',
   },
 ];
-const HomePage = () => {
+
+const Homepage = () => {
   return (
     <>
       <Hero />
@@ -40,4 +41,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Homepage;

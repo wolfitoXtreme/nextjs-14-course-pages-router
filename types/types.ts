@@ -12,3 +12,5 @@ export type TPost = {
   text: string;
   title: string;
 };
+
+export type TPostHeader = Omit<TPost, 'date' | 'slug' | 'text'>;
