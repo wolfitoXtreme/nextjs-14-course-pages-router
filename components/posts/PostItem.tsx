@@ -20,7 +20,6 @@ const PostItem: React.FC<{ post: TPost }> = ({
             width={300}
             height={200}
             alt={title}
-            layout="responsive"
           />
         </div>
         <div className={styles.content}>

@@ -8,6 +8,7 @@ export type SampleBT = [a: string, b: number];
 export type TPost = {
   date: Date | string;
   image: string;
+  isFeatured?: boolean;
   slug: string;
   text: string;
   title: string;

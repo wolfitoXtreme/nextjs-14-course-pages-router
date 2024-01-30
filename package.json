@@ -21,6 +21,7 @@
     "postinstall": "husky install"
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",

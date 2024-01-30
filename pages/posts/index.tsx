@@ -1,38 +1,25 @@
+import { GetStaticProps } from 'next/types';
+
+import { TPost } from '@/types';
+import { getAllPosts } from '@/utils/api';
+
 import AllPosts from '@/components/posts/AllPosts';
 
-const DUMMY_POSTS = [
-  {
-    date: '2024-02-10',
-    image: 'getting-started-nextjs.png',
-    slug: 'getting-started-with-nextjs-01',
-    text: 'NextJS is the react framework for production. Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-    title: 'Getting Started with NextJS',
-  },
-  {
-    date: '2024-02-10',
-    image: 'getting-started-nextjs.png',
-    slug: 'getting-started-with-nextjs-02',
-    text: 'NextJS is the react framework for production. Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-    title: 'Getting Started with NextJS',
-  },
-  {
-    date: '2024-02-10',
-    image: 'getting-started-nextjs.png',
-    slug: 'getting-started-with-nextjs-03',
-    text: 'NextJS is the react framework for production. Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-    title: 'Getting Started with NextJS',
-  },
-  {
-    date: '2024-02-10',
-    image: 'getting-started-nextjs.png',
-    slug: 'getting-started-with-nextjs-04',
-    text: 'NextJS is the react framework for production. Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-    title: 'Getting Started with NextJS',
-  },
-];
+const AllPostsPage = ({ posts }: { posts: TPost[] }) => {
+  return <AllPosts posts={posts} />;
+};
 
-const AllPostsPage = () => {
-  return <AllPosts posts={DUMMY_POSTS} />;
+export const getStaticProps: GetStaticProps = () => {
+  const posts = getAllPosts();
+
+  return {
+    props: {
+      posts,
+    },
+    // will retrieve data again after given timeout (otherwise data will be static until rebuild)
+    // revalidate: 1800,
+    // revalidate not defined means, it will never be regenerated after deployment
+  };
 };
 
 export default AllPostsPage;
