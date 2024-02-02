@@ -7,6 +7,7 @@ export type SampleBT = [a: string, b: number];
 
 export type TPost = {
   date: Date | string;
+  excerpt: string;
   image: string;
   isFeatured?: boolean;
   slug: string;
@@ -14,4 +15,4 @@ export type TPost = {
   title: string;
 };
 
-export type TPostHeader = Omit<TPost, 'date' | 'slug' | 'text'>;
+export type TPostHeader = Omit<TPost, 'date' | 'excerpt' | 'slug' | 'text'>;

@@ -9,12 +9,14 @@ import { TPost } from '@/types';
 // posts              -> posts directory
 const postsDirectory = path.join(process.cwd(), 'posts');
 
-const getPostData = (fileName: string) => {
-  const filePath = path.join(postsDirectory, fileName);
+export const getPostData = (postIdentifier: string) => {
+  const postSlug = postIdentifier.replace(/\.md$/, ''); // removes file extension
+  // add extension so function accepts file name and or a flat string
+  const filePath = path.join(postsDirectory, `${postSlug}.md`);
+  // const filePath = path.join(postsDirectory, postIdentifier);
   const fileContent = fs.readFileSync(filePath, 'utf-8');
 
   const { content, data } = matter(fileContent);
-  const postSlug = fileName.replace(/\.md$/, ''); // removes file extension
 
   const postData = {
     slug: postSlug,
@@ -22,11 +24,28 @@ const getPostData = (fileName: string) => {
     text: content,
   };
 
+  // eslint-disable-next-line no-console
+  console.log(
+    { postData },
+    { postsDirectory },
+    { postIdentifier },
+    { filePath },
+  );
+
   return postData;
 };
 
+export const getPostFiles = (includeExtension = false) => {
+  const files = fs.readdirSync(postsDirectory);
+  if (!includeExtension) {
+    return files.map(fileName => fileName.replace(/\.md$/, ''));
+  }
+
+  return files;
+};
+
 export const getAllPosts = () => {
-  const postFiles = fs.readdirSync(postsDirectory);
+  const postFiles = getPostFiles();
 
   const allPosts = postFiles
     .map(postFile => getPostData(postFile))

@@ -7,7 +7,7 @@ import { humanReadableDate } from '@/utils/utils';
 import styles from './PostItem.module.scss';
 
 const PostItem: React.FC<{ post: TPost }> = ({
-  post: { date, image, slug, text, title },
+  post: { date, excerpt, image, slug, title },
 }) => {
   const formattedDate = humanReadableDate(date as Date);
 
@@ -25,7 +25,7 @@ const PostItem: React.FC<{ post: TPost }> = ({
         <div className={styles.content}>
           <h3>{title}</h3>
           <time>{formattedDate}</time>
-          <p>{text}</p>
+          <p>{excerpt}</p>
         </div>
       </Link>
     </li>
