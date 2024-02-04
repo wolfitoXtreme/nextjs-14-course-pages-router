@@ -59,7 +59,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log({ error });
-      res.status(500).json({ message: 'Inserting data Failed.' });
+      res.status(500).json({ message: 'Inserting data Failed!.' });
     }
   }
 

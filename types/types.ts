@@ -1,3 +1,5 @@
+import { EnumNotificationStatus } from '.';
+
 export type SampleAT = {
   a: string;
   b: number;
@@ -21,4 +23,10 @@ export type TContactFormFields = {
   email: string;
   message: string;
   name: string;
+};
+
+export type TNotification = {
+  message: string;
+  status: EnumNotificationStatus;
+  title: string;
 };

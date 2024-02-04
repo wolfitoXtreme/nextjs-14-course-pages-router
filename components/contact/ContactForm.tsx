@@ -1,6 +1,13 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
-import { EnumRequestMethod, TContactFormFields } from '@/types';
+import {
+  EnumNotificationStatus,
+  EnumRequestMethod,
+  TContactFormFields,
+  TNotification,
+} from '@/types';
+
+import Notification from '@/components/ui/Notification';
 
 import styles from './ContactForm.module.scss';
 
@@ -11,7 +18,42 @@ const ContactForm = () => {
     message: '',
     name: '',
   });
+
+  const [formIsDisabled, setFormIsDisabled] = useState(false);
+
+  const [notificationData, setNotificationData] =
+    useState<TNotification | null>(null);
+
   const { email, message, name } = fieldValues;
+
+  useEffect(() => {
+    // disable fields while pending
+    if (notificationData?.status === EnumNotificationStatus.PENDING) {
+      setFormIsDisabled(true);
+    }
+
+    // removes notification  on success or error
+    if (
+      notificationData?.status === EnumNotificationStatus.SUCCESS ||
+      notificationData?.status === EnumNotificationStatus.ERROR
+    ) {
+      const timer = setTimeout(() => {
+        setNotificationData(null);
+        setFormIsDisabled(false);
+
+        // reset fields on success
+        if (notificationData?.status === EnumNotificationStatus.SUCCESS) {
+          setFieldValues({
+            email: '',
+            message: '',
+            name: '',
+          });
+        }
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [notificationData?.status]);
 
   const setFieldValueHandler = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
@@ -30,12 +72,39 @@ const ContactForm = () => {
     event.preventDefault();
     // client side validation would be here...
 
+    setNotificationData({
+      message: 'Contact data being sent now',
+      status: EnumNotificationStatus.PENDING,
+      title: 'Sending...',
+    });
+
     fetch('/api/contact', {
       body: JSON.stringify(fieldValues),
       headers: {
         'Content-Type': 'application/json',
       },
       method: EnumRequestMethod.POST,
+    }).then(response => {
+      if (response.ok) {
+        // eslint-disable-next-line no-console
+        console.log('response OK', { response });
+
+        setNotificationData({
+          message: 'Contact data sent',
+          status: EnumNotificationStatus.SUCCESS,
+          title: 'Complete',
+        });
+
+        return response.json();
+      }
+
+      response.json().then(data => {
+        setNotificationData({
+          message: data.message,
+          status: EnumNotificationStatus.ERROR,
+          title: 'Error in Contact Form',
+        });
+      });
     });
   };
 
@@ -51,6 +120,7 @@ const ContactForm = () => {
               id="email"
               required
               value={email}
+              disabled={formIsDisabled}
               onChange={setFieldValueHandler}
             />
           </div>
@@ -61,6 +131,7 @@ const ContactForm = () => {
               id="name"
               required
               value={name}
+              disabled={formIsDisabled}
               onChange={setFieldValueHandler}
             />
           </div>
@@ -73,13 +144,15 @@ const ContactForm = () => {
             rows={5}
             required
             value={message}
+            disabled={formIsDisabled}
             onChange={setFieldValueHandler}></textarea>
         </div>
 
         <div className={styles.actions}>
-          <button>Send message</button>
+          <button disabled={formIsDisabled}>Send message</button>
         </div>
       </form>
+      {notificationData && <Notification {...notificationData} />}
     </section>
   );
 };

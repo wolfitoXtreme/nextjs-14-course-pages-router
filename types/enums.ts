@@ -7,3 +7,9 @@ export enum EnumRequestMethod {
   GET = 'GET',
   POST = 'POST',
 }
+
+export enum EnumNotificationStatus {
+  ERROR = 'error',
+  PENDING = 'pending',
+  SUCCESS = 'success',
+}
