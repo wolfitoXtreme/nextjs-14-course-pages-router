@@ -16,3 +16,9 @@ export type TPost = {
 };
 
 export type TPostHeader = Omit<TPost, 'date' | 'excerpt' | 'slug' | 'text'>;
+
+export type TContactFormFields = {
+  email: string;
+  message: string;
+  name: string;
+};
