@@ -1,3 +1,5 @@
+import ReactDOM from 'react-dom';
+
 import classNames from 'classnames';
 
 import { EnumNotificationStatus, INotification } from '@/types';
@@ -5,7 +7,7 @@ import { EnumNotificationStatus, INotification } from '@/types';
 import styles from './Notification.module.scss';
 
 const Notification: React.FC<INotification> = ({ message, status, title }) => {
-  return (
+  return ReactDOM.createPortal(
     <div
       className={classNames(styles.notification, {
         [styles.error]: status === EnumNotificationStatus.ERROR,
@@ -14,7 +16,8 @@ const Notification: React.FC<INotification> = ({ message, status, title }) => {
       })}>
       <h2>{title}</h2>
       <p>{message}</p>
-    </div>
+    </div>,
+    document.querySelectorAll('[data-id="notifications"]')[0],
   );
 };
 

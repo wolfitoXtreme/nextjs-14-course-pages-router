@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps } from 'next/types';
 
 import { ParsedUrlQuery } from 'querystring';
@@ -8,7 +9,15 @@ import { getPostData, getPostFiles } from '@/utils/api';
 import PostContent from '@/components/posts/post-detail/PostContent';
 
 const PostDetailPage = ({ post }: { post: TPost }) => {
-  return <PostContent post={post} />;
+  return (
+    <>
+      <Head>
+        <title>{post.title}</title>
+        <meta name="description" content={post.excerpt} />
+      </Head>
+      <PostContent post={post} />
+    </>
+  );
 };
 
 export const getStaticProps: GetStaticProps = context => {

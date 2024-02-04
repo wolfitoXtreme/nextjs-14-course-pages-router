@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { GetStaticProps } from 'next/types';
 
 import { TPost } from '@/types';
@@ -9,6 +10,10 @@ import Hero from '@/components/homepage/Hero';
 const Homepage = ({ posts }: { posts: TPost[] }) => {
   return (
     <>
+      <Head>
+        <title>Welcome to my blog</title>
+        <meta name="description" content="I post Lorem Lorem" />
+      </Head>
       <Hero />
       <FeaturedPosts posts={posts} />
     </>

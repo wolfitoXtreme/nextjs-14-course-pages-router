@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { GetStaticProps } from 'next/types';
 
 import { TPost } from '@/types';
@@ -6,7 +7,15 @@ import { getAllPosts } from '@/utils/api';
 import AllPosts from '@/components/posts/AllPosts';
 
 const AllPostsPage = ({ posts }: { posts: TPost[] }) => {
-  return <AllPosts posts={posts} />;
+  return (
+    <>
+      <Head>
+        <title>All my posts</title>
+        <meta name="description" content="All posts here." />
+      </Head>
+      <AllPosts posts={posts} />
+    </>
+  );
 };
 
 export const getStaticProps: GetStaticProps = () => {

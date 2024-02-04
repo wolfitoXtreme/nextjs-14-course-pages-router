@@ -1,7 +1,17 @@
+import Head from 'next/head';
+
 import ContactForm from '@/components/contact/ContactForm';
 
 const ContactPage = () => {
-  return <ContactForm />;
+  return (
+    <>
+      <Head>
+        <title>Contact me</title>
+        <meta name="description" content="Contact me here." />
+      </Head>
+      <ContactForm />
+    </>
+  );
 };
 
 export default ContactPage;
