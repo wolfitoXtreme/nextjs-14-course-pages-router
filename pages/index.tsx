@@ -4,8 +4,8 @@ import { GetStaticProps } from 'next/types';
 import { TPost } from '@/types';
 import { getFeaturedPosts } from '@/utils/api';
 
-import FeaturedPosts from '@/components/homepage/FeaturedPosts';
-import Hero from '@/components/homepage/Hero';
+import FeaturedPosts from '@/components/homePage/FeaturedPosts';
+import Hero from '@/components/homePage/Hero';
 
 const Homepage = ({ posts }: { posts: TPost[] }) => {
   return (

@@ -9,11 +9,13 @@ import { getPostData, getPostFiles } from '@/utils/api';
 import PostContent from '@/components/posts/post-detail/PostContent';
 
 const PostDetailPage = ({ post }: { post: TPost }) => {
+  const { excerpt, title } = post;
+
   return (
     <>
       <Head>
-        <title>{post.title}</title>
-        <meta name="description" content={post.excerpt} />
+        <title>{title}</title>
+        <meta name="description" content={excerpt} />
       </Head>
       <PostContent post={post} />
     </>
@@ -40,7 +42,7 @@ export const getStaticPaths: GetStaticPaths = () => {
   const filePaths = postFileNames.map(slug => ({ params: { slug } }));
 
   return {
-    fallback: true,
+    fallback: false, // TODO - true fails apparently because data filesystem usage
     paths: filePaths,
   };
 };

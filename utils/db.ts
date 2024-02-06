@@ -1,6 +1,6 @@
 import { Document, MongoClient } from 'mongodb';
 
-const DB_NAME = 'blog_comments';
+const DB_NAME = process.env.DB_B;
 
 export const connectDataBase = async () => {
   const dbUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS_B}@${process.env.DB_CLUSTER_B}/?retryWrites=true&w=majority`;

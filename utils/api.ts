@@ -24,14 +24,6 @@ export const getPostData = (postIdentifier: string) => {
     text: content,
   };
 
-  // eslint-disable-next-line no-console
-  console.log(
-    { postData },
-    { postsDirectory },
-    { postIdentifier },
-    { filePath },
-  );
-
   return postData;
 };
 

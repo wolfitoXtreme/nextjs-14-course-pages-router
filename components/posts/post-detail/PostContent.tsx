@@ -1,15 +1,18 @@
 import Image from 'next/image';
 import { ElementType } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 
-import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import js from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
+import atomDark from 'react-syntax-highlighter/dist/cjs/styles/prism/atom-dark';
 
 import { TPost } from '@/types';
 
 import PostHeader from './PostHeader';
 
 import styles from './PostContent.module.scss';
+
+SyntaxHighlighter.registerLanguage('js', js);
 
 const PostContent: React.FC<{ post: TPost }> = ({
   post: { image, slug, text, title },
@@ -56,7 +59,6 @@ const PostContent: React.FC<{ post: TPost }> = ({
 
   return (
     <article className={styles.content}>
-      <p>{image}</p>
       <PostHeader title={title} image={`/images/posts/${slug}/${image}`} />
       <ReactMarkdown components={components}>{text}</ReactMarkdown>
     </article>
