@@ -1,7 +1,7 @@
 module.exports = {
   customSyntax: 'postcss-scss',
-  plugins: ['stylelint-order', 'stylelint-scss'],
   extends: ['stylelint-config-standard'],
+  plugins: ['stylelint-order', 'stylelint-scss'],
   rules: {
     'alpha-value-notation': 'number',
     'at-rule-no-unknown': null,
@@ -543,17 +543,7 @@ module.exports = {
       'always',
       { ignore: ['after-comment', 'first-nested'] },
     ],
-    'selector-pseudo-class-no-unknown': [
-      true,
-      {
-        ignorePseudoClasses: ['export', 'import', 'global'],
-      },
-    ],
     'scss/at-rule-no-unknown': true,
-    'scss/dollar-variable-first-in-block': [
-      true,
-      { ignore: ['comments', 'imports'] },
-    ],
     'scss/dollar-variable-empty-line-after': [
       'always',
       {
@@ -567,11 +557,21 @@ module.exports = {
         ignore: ['inside-single-line-block'],
       },
     ],
+    'scss/dollar-variable-first-in-block': [
+      true,
+      { ignore: ['comments', 'imports'] },
+    ],
     'scss/double-slash-comment-empty-line-before': [
       'always',
       {
         except: ['first-nested'],
         ignore: ['between-comments', 'stylelint-commands'],
+      },
+    ],
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['export', 'import', 'global'],
       },
     ],
   },
