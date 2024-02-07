@@ -4,3 +4,5 @@ export type SampleAT = {
 };
 
 export type SampleBT = [a: string, b: number];
+
+export type TUserParams = { email: string; password: string };

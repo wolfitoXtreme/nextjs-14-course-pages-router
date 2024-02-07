@@ -1,25 +1,56 @@
-import { useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 
-import styles from './auth-form.module.scss';
+import { createUser } from '@/utils/api';
+
+import styles from './AuthForm.module.scss';
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
 
-  function switchAuthModeHandler() {
+  const switchAuthModeHandler = () => {
     setIsLogin(prevState => !prevState);
-  }
+  };
+
+  const submitHandler = async (event: FormEvent) => {
+    event.preventDefault();
+
+    // FE validation...
+
+    if (isLogin) {
+      // is login...
+    } else {
+      try {
+        const result = await createUser({
+          email: emailInputRef.current?.value || '',
+          password: passwordInputRef.current?.value || '',
+        });
+        // eslint-disable-next-line no-console
+        console.log({ result });
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log({ error });
+      }
+    }
+  };
 
   return (
     <section className={styles.auth}>
       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <form>
+      <form onSubmit={submitHandler}>
         <div className={styles.control}>
           <label htmlFor="email">Your Email</label>
-          <input type="email" id="email" required />
+          <input ref={emailInputRef} type="email" id="email" required />
         </div>
         <div className={styles.control}>
           <label htmlFor="password">Your Password</label>
-          <input type="password" id="password" required />
+          <input
+            ref={passwordInputRef}
+            type="password"
+            id="password"
+            required
+          />
         </div>
         <div className={styles.actions}>
           <button>{isLogin ? 'Login' : 'Create Account'}</button>

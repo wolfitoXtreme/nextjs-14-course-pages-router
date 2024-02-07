@@ -1,4 +1,4 @@
-import { SampleAT, SampleBT, TMealItem } from '@/types/types';
+import { SampleAT, SampleBT, TUserParams } from '@/types/types';
 
 export interface SampleAI<P = SampleAT> {
   (args: P): string;
@@ -17,10 +17,6 @@ export interface IHeaderNavigationLink {
   children?: React.ReactNode;
 }
 
-export interface IMealsGrid {
-  meals: TMealItem[];
-}
-
 export interface IImagePicker {
   label: string;
   name: string;
@@ -35,4 +31,8 @@ export interface IShareMealAction {
   ): Promise<{
     message: string | null;
   }>;
+}
+
+export interface ICreateUser {
+  (params: TUserParams): Promise<unknown>;
 }
