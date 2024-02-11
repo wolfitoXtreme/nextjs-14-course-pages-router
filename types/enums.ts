@@ -7,3 +7,7 @@ export enum EnumRequestMethod {
   GET = 'GET',
   POST = 'POST',
 }
+
+export enum EnumAuthProvider {
+  CREDENTIALS = 'credentials',
+}

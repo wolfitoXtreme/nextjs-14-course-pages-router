@@ -1,5 +1,8 @@
 import { FormEvent, useRef, useState } from 'react';
 
+import { signIn } from 'next-auth/react';
+
+import { EnumAuthProvider } from '@/types';
 import { createUser } from '@/utils/api';
 
 import styles from './AuthForm.module.scss';
@@ -19,7 +22,15 @@ const AuthForm = () => {
     // FE validation...
 
     if (isLogin) {
-      // is login...
+      const result = await signIn(EnumAuthProvider.CREDENTIALS, {
+        sentEmail: emailInputRef.current?.value,
+        sentPassword: passwordInputRef.current?.value,
+        redirect: false, // by default next-auth redirects to the error page
+      });
+
+      if (result?.error) {
+        // setting auth state
+      }
     } else {
       try {
         const result = await createUser({

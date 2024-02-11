@@ -1,4 +1,6 @@
-import { Document, MongoClient } from 'mongodb';
+import { MongoClient } from 'mongodb';
+
+import { IFindDocument, IGetCollection, IInsertDocument } from '@/types';
 
 const DB_NAME = 'users_auth';
 
@@ -12,15 +14,34 @@ export const connectDataBase = async () => {
   return client;
 };
 
-export const insertDocument = async (
-  client: MongoClient,
-  table: string,
-  document: Document,
-) => {
+export const insertDocument: IInsertDocument = async ({
+  client,
+  table,
+  document,
+}) => {
   // eslint-disable-next-line no-console
-  console.log('insertDocument!!');
+  console.log('insertDocument!!', { document });
   const db = client.db(DB_NAME);
   const result = await db.collection(table).insertOne(document);
 
   return { result };
+};
+
+export const findDocument: IFindDocument = async ({
+  client,
+  table,
+  document,
+}) => {
+  const db = client.db(DB_NAME);
+
+  // eslint-disable-next-line no-console
+  console.log('Finding document...', { document });
+
+  return await db.collection(table).findOne(document);
+};
+
+export const getCollection: IGetCollection = ({ client, table }) => {
+  const db = client.db(DB_NAME);
+
+  return db.collection(table);
 };

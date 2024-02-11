@@ -1,10 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next/types';
 
-import { MongoClient } from 'mongodb';
-
 import { EnumRequestMethod } from '@/types';
 import { hashPassword } from '@/utils/auth';
-import { connectDataBase, insertDocument } from '@/utils/db';
+import { connectDataBase, findDocument, insertDocument } from '@/utils/db';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { body, method } = req;
@@ -23,6 +21,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (method === EnumRequestMethod.POST) {
     const { email, password } = body;
+
+    // check for existing user
+    const existingUser = await findDocument({
+      client,
+      table: 'users',
+      document: { email },
+    });
+
+    if (existingUser) {
+      res.status(422).json({ message: 'User already exist!' });
+      // eslint-disable-next-line no-console
+      console.log('closing connection...');
+      client.close();
+
+      return;
+    }
 
     if (
       !email ||
@@ -46,11 +60,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
       // throw new Error('This is a deliberate error.');
-      const { result } = await insertDocument(
-        client as MongoClient,
-        'users',
-        newUser,
-      );
+      const { result } = await insertDocument({
+        client,
+        table: 'users',
+        document: newUser,
+      });
 
       // eslint-disable-next-line no-console
       console.log({ result }, { newUser });

@@ -1,4 +1,6 @@
-import { SampleAT, SampleBT, TUserParams } from '@/types/types';
+import { Collection, InsertOneResult, MongoClient } from 'mongodb';
+
+import { SampleAT, SampleBT, TUser } from '@/types/types';
 
 export interface SampleAI<P = SampleAT> {
   (args: P): string;
@@ -34,5 +36,27 @@ export interface IShareMealAction {
 }
 
 export interface ICreateUser {
-  (params: TUserParams): Promise<unknown>;
+  (params: Omit<TUser, '_id'>): Promise<unknown>;
+}
+
+export interface IInsertDocument {
+  (params: {
+    client: MongoClient;
+    table: string;
+    document: Record<string, unknown>;
+  }): Promise<{
+    result: InsertOneResult<Document>;
+  }>;
+}
+
+export interface IFindDocument {
+  (params: {
+    client: MongoClient;
+    table: string;
+    document: Record<string, unknown>;
+  }): Promise<unknown>;
+}
+
+export interface IGetCollection {
+  (params: { client: MongoClient; table: string }): Collection<Document>;
 }
