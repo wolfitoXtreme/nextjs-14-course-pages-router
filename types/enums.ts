@@ -11,3 +11,9 @@ export enum EnumRequestMethod {
 export enum EnumAuthProvider {
   CREDENTIALS = 'credentials',
 }
+
+export enum EnumSessionStatus {
+  LOADING = 'loading',
+  AUTHENTICATED = 'authenticated',
+  UNAUTHENTICATED = 'unauthenticated',
+}
