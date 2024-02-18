@@ -6,6 +6,7 @@ export enum SampleE {
 export enum EnumRequestMethod {
   GET = 'GET',
   POST = 'POST',
+  PATCH = 'PATCH',
 }
 
 export enum EnumAuthProvider {

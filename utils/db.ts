@@ -1,6 +1,11 @@
 import { MongoClient } from 'mongodb';
 
-import { IFindDocument, IGetCollection, IInsertDocument } from '@/types';
+import {
+  IChangeDocument,
+  IFindDocument,
+  IGetCollection,
+  IInsertDocument,
+} from '@/types';
 
 const DB_NAME = 'users_auth';
 
@@ -44,4 +49,20 @@ export const getCollection: IGetCollection = ({ client, table }) => {
   const db = client.db(DB_NAME);
 
   return db.collection(table);
+};
+
+export const changeDocument: IChangeDocument = async ({
+  client,
+  table,
+  document,
+  recordUpdate,
+}) => {
+  const db = client.db(DB_NAME);
+
+  // eslint-disable-next-line no-console
+  console.log('Changing document...', { document });
+
+  return await db.collection(table).updateOne(document, {
+    $set: recordUpdate,
+  });
 };

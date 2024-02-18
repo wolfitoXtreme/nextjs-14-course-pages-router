@@ -57,6 +57,23 @@ export interface IFindDocument {
   }): Promise<unknown>;
 }
 
+export interface IChangeDocument {
+  (params: {
+    client: MongoClient;
+    table: string;
+    document: Record<string, unknown>;
+    recordUpdate: Record<string, unknown>;
+  }): Promise<unknown>;
+}
+
 export interface IGetCollection {
   (params: { client: MongoClient; table: string }): Collection<Document>;
+}
+
+export interface IChangePassword {
+  (params: { sentOldPassword: string; sentNewPassword: string }): void;
+}
+
+export interface IProfileForm {
+  onChangePassword: IChangePassword;
 }

@@ -1,4 +1,4 @@
-import NextAuth, { Awaitable, User } from 'next-auth';
+import NextAuth, { Awaitable, SessionStrategy, User } from 'next-auth';
 
 import CredentialProvider from 'next-auth/providers/credentials';
 
@@ -6,8 +6,9 @@ import { EnumAuthProvider, TUser } from '@/types';
 import { verifyPassword } from '@/utils/auth';
 import { connectDataBase, findDocument } from '@/utils/db';
 
-export default NextAuth({
-  session: { strategy: 'jwt' },
+export const authOptions = {
+  secret: 'thequickbrownfox',
+  session: { strategy: 'jwt' as SessionStrategy },
   providers: [
     CredentialProvider({
       name: EnumAuthProvider.CREDENTIALS,
@@ -65,4 +66,6 @@ export default NextAuth({
       },
     }),
   ],
-}); // contains the handler function
+}; // contains the handler function
+
+export default NextAuth(authOptions);
